@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { selectCars } from "../../rudex/cars/selectors";
+import { useDispatch } from "react-redux";
+import { toggleLike } from "../../rudex/cars/slice";
 
-const Car = ({ setCar, setIsOpen }) => {
-  const cars = useSelector(selectCars);
+const Car = ({ cars, setCar, setIsOpen }) => {
+  const dispatch = useDispatch();
   const handleModal = (car) => {
     setCar(car);
     setIsOpen(true);
@@ -31,7 +31,14 @@ const Car = ({ setCar, setIsOpen }) => {
               <p>{car.id}</p>
               <p>{car.functionalities[0]}</p>
             </div>
-            <button>d</button>
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(toggleLike(car));
+              }}
+            >
+              favorites
+            </button>
             <button
               type="button"
               onClick={() => {

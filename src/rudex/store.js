@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { filterSlice } from "./filterCars/slice";
 
 const persistConfig = {
   key: "car",
@@ -21,7 +22,10 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, carSlice);
 
 export const store = configureStore({
-  reducer: { car: persistedReducer },
+  reducer: {
+    car: persistedReducer,
+    filter: filterSlice,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

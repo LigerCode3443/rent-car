@@ -5,7 +5,7 @@ import Catalog from "./pages/Catalog/Catalog";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import { useEffect, useState } from "react";
-import { getCarsThunk } from "./rudex/cars/operations";
+import { getCarsThunk, getModelThunk } from "./rudex/cars/operations";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCarsThunk(page));
+    dispatch(getCarsThunk(page)).unwrap().then(dispatch(getModelThunk()));
   }, [dispatch, page]);
   return (
     <>

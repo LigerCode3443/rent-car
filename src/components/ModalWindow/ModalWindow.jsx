@@ -65,7 +65,7 @@ const ModalWindow = ({ car, isOpen, setIsOpen, setCar }) => {
               </div>
               <p>Rental Conditions:</p>
               <p>{car?.rentalConditions}</p>
-              <p>Mileage:{car?.mileage}</p>
+              <p>Mileage:{car?.mileage.toLocaleString("en-US")}</p>
               <p>Price{car?.rentalPrice}</p>
             </div>
             <button
@@ -76,6 +76,7 @@ const ModalWindow = ({ car, isOpen, setIsOpen, setCar }) => {
             >
               close
             </button>
+            <a href="tel:+380730000000">Rental car</a>
           </>
         }
       </Modal>
