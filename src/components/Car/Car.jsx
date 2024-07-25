@@ -25,7 +25,7 @@ const Car = ({ cars, setCar, setIsOpen }) => {
                 className="rounded-[14px] min-h-[268px] mb-[14px]"
               />
               <div className="flex justify-between mb-2">
-                <ul className="flex gap-1">
+                <ul className="flex flex-wrap gap-1">
                   <li>{car?.make}</li>
                   <li className="text-[#3470ff]">{car?.model},</li>
                   <li>{car?.year}</li>

@@ -34,14 +34,14 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCarsThunk.fulfilled, (state, action) => {
-        //   if(state.page ===)
-        // if (state.cars.length > 0) {
-        //   state.cars = [...state.cars, ...action.payload];
-        // }
-        // if (state.cars.length === 0) {
-
-        // }
-        state.cars = action.payload;
+        if (state.cars.length === 0) {
+          state.cars = action.payload;
+        } else {
+          const actualCars = action.payload.filter(
+            (car) => !state.cars.some((item) => item.id === car.id)
+          );
+          state.cars = [...state.cars, ...actualCars];
+        }
       })
       .addCase(getModelThunk.fulfilled, (state, action) => {
         state.select = action.payload;

@@ -7,15 +7,26 @@ import {
 } from "../../rudex/cars/selectors";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
-import { selectFilterMemo, togglePage } from "../../rudex/cars/slice";
+import {
+  selectFilterMemo,
+  togglePage,
+  totalPage,
+} from "../../rudex/cars/slice";
+import { useEffect } from "react";
+import { getCarsThunk, getModelThunk } from "../../rudex/cars/operations";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const totalPage = useSelector(selectTotalPage);
+  const total = useSelector(selectTotalPage);
   const page = useSelector(selectPage);
   const cars = useSelector(selectCars);
   const filter = useSelector(selectFilterMemo);
 
+  useEffect(() => {
+    dispatch(getCarsThunk(page))
+      .unwrap()
+      .then(dispatch(getModelThunk()), dispatch(totalPage()));
+  }, [dispatch, page]);
   const handleClick = () => {
     dispatch(togglePage());
   };
@@ -23,7 +34,7 @@ const Catalog = () => {
     <div>
       <SearchBar />
       <CarsList cars={filter.length === 0 ? cars : filter} />
-      {totalPage !== page && (
+      {total !== page && filter.length === 0 && (
         <button
           type="button"
           onClick={handleClick}

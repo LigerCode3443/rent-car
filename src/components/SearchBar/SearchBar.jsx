@@ -8,8 +8,7 @@ export const SearchBar = () => {
   const model = search.map((item) => item.make);
   const price = search.map((item) => item.rentalPrice);
   const optionsModel = [...new Set(model)];
-  const optionsPrice = [...new Set(price)];
-  const optionsValue = optionsPrice
+  const optionsPrice = [...new Set(price)]
     .map((item) => Number(item.replace("$", "")))
     .toSorted((a, b) => a - b);
   const { register, handleSubmit, reset } = useForm();
@@ -40,7 +39,7 @@ export const SearchBar = () => {
             {...register("make")}
             className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-56"
           >
-            <option value="All">Select a model</option>
+            <option value="All">All a model</option>
             {optionsModel.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -57,9 +56,9 @@ export const SearchBar = () => {
             defaultValue={null}
             className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-[125px]"
           >
-            <option value="All">To</option>
+            <option value="null">To</option>
             {optionsPrice.map((item) => (
-              <option key={item} value={item}>
+              <option key={item} value={`$${String(item)}`}>
                 {item}
               </option>
             ))}
