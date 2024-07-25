@@ -8,7 +8,7 @@ const buildLinkClass = ({ isActive }) => {
 const Navigation = () => {
   const favoritesCar = useSelector(selectFavoritesCar);
   return (
-    <div>
+    <header className="mb-5">
       <nav>
         <ul className="flex flex-row gap-5 h-16 items-center text-lg font-bold">
           <li>
@@ -37,7 +37,7 @@ const Navigation = () => {
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 };
 export default Navigation;

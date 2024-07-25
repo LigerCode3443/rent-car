@@ -38,7 +38,7 @@ const Car = ({ cars, setCar, setIsOpen }) => {
                   <li>{car.address.split(",")[2]}</li>
                   <li>{car.rentalCompany}</li>
                 </ul>
-                <ul className="flex gap-3 list">
+                <ul className="flex flex-wrap gap-x-3 list">
                   <li>{car.type}</li>
                   <li>{car.make}</li>
                   <li>{car.id}</li>

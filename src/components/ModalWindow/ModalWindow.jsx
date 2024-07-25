@@ -47,7 +47,7 @@ const ModalWindow = ({ car, isOpen, setIsOpen, setCar }) => {
               <li className="text-[#3470ff]">{car?.model},</li>
               <li>{car?.year}</li>
             </ul>
-            <div className="text-sm text-stone-400 mb-[14px]">
+            <div className="text-xs text-stone-400 mb-[14px]">
               <ul className="list flex gap-3 items-center">
                 <li>{car?.address.split(",")[1]}</li>
                 <li>{car?.address.split(",")[2]}</li>
@@ -60,8 +60,10 @@ const ModalWindow = ({ car, isOpen, setIsOpen, setCar }) => {
               </ul>
             </div>
             <p className="text-sm font-normal mb-6">{car?.description}</p>
-            <p>Accessories and Functionalities:</p>
-            <ul className="list flex flex-wrap gap-x-3 text-stone-400 text-sm">
+            <p className="text-sm font-medium">
+              Accessories and Functionalities:
+            </p>
+            <ul className="list flex flex-wrap gap-x-3 text-stone-400 text-xs mb-6">
               {car?.accessories?.map((item, index) => (
                 <li key={item[index]}>{item}</li>
               ))}
@@ -70,7 +72,7 @@ const ModalWindow = ({ car, isOpen, setIsOpen, setCar }) => {
               ))}
             </ul>
             <ul className="list flex flex-wrap gap-x-3 text-stone-400 text-sm"></ul>
-            <p>Rental Conditions:</p>
+            <p className="text-sm font-medium">Rental Conditions:</p>
             <ul className="flex flex-wrap gap-2 text-sm mb-6">
               <li className="px-[14px] py-[7px] bg-[#f9f9f9] rounded-[35px]">
                 Minimum age: <span className="text-[#3470ff]">{age}</span>
