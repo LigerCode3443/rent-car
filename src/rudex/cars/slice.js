@@ -5,6 +5,8 @@ import { selectFilter } from "../filterCars/selectors";
 
 const initialState = {
   cars: [],
+  page: 1,
+  totalPage: null,
   favoritesCar: [],
   select: [],
 };
@@ -22,10 +24,23 @@ const slice = createSlice({
         state.favoritesCar.push(action.payload);
       }
     },
+    togglePage(state) {
+      state.page = state.page + 1;
+    },
+    totalPage(state) {
+      state.totalPage = Math.ceil(state.select.length / 12);
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getCarsThunk.fulfilled, (state, action) => {
+        //   if(state.page ===)
+        // if (state.cars.length > 0) {
+        //   state.cars = [...state.cars, ...action.payload];
+        // }
+        // if (state.cars.length === 0) {
+
+        // }
         state.cars = action.payload;
       })
       .addCase(getModelThunk.fulfilled, (state, action) => {
@@ -46,5 +61,5 @@ export const selectFilterMemo = createSelector(
     });
   }
 );
-export const { toggleLike } = slice.actions;
+export const { toggleLike, togglePage, totalPage } = slice.actions;
 export const carSlice = slice.reducer;

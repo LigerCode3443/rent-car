@@ -1,3 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Manrope";
+  src: url(./assets/fonts/Manrope-Regular.ttf) format(ttf);
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+}
+
 h1,
 h2,
 h3,
@@ -33,4 +46,34 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0px;
+  background: #3470ff;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #fff;
+}
+.btn:hover {
+  background: #023fce;
+}
+
+.list > li {
+  position: relative;
+}
+.list > li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 1px;
+  height: 16px;
+
+  background-color: rgba(18, 20, 23, 0.1);
 }

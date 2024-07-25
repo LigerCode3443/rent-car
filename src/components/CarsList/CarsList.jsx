@@ -8,7 +8,7 @@ const CarsList = ({ cars }) => {
 
   return (
     <>
-      <ul>
+      <ul className="flex flex-row flex-wrap gap-x-[29px] gap-y-[50px] mb-5 ">
         <Car setCar={setCar} setIsOpen={setIsOpen} cars={cars} />
       </ul>
       <ModalWindow
