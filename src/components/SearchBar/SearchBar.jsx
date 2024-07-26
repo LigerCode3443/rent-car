@@ -31,15 +31,14 @@ export const SearchBar = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex gap-[18px] items-end"
       >
-        <label htmlFor="" className="flex flex-col ">
+        <label className="flex flex-col ">
           <span className="text-[#8a8a89] text-sm mb-2"> Car brand</span>
           <select
             name="make"
-            id=""
             {...register("make")}
             className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-56"
           >
-            <option value="All">All a model</option>
+            <option value="All">All models</option>
             {optionsModel.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -47,16 +46,15 @@ export const SearchBar = () => {
             ))}
           </select>
         </label>
-        <label htmlFor="" className="flex flex-col">
+        <label className="flex flex-col">
           <span className="text-[#8a8a89] text-sm mb-2"> Price / 1 hour</span>
           <select
             name="price"
-            id=""
             {...register("price")}
             defaultValue={null}
             className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-[125px]"
           >
-            <option value="null">To</option>
+            <option value="null">Price</option>
             {optionsPrice.map((item) => (
               <option key={item} value={`$${String(item)}`}>
                 {item}

@@ -21,6 +21,7 @@ const Catalog = () => {
   const page = useSelector(selectPage);
   const cars = useSelector(selectCars);
   const filter = useSelector(selectFilterMemo);
+  const item = document.querySelector(".li_h")?.clientHeight;
 
   useEffect(() => {
     dispatch(getCarsThunk(page))
@@ -29,6 +30,9 @@ const Catalog = () => {
   }, [dispatch, page]);
   const handleClick = () => {
     dispatch(togglePage());
+    setTimeout(() => {
+      window.scrollBy({ top: item, behavior: "smooth" });
+    }, 500);
   };
   return (
     <div>

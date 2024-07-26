@@ -14,9 +14,10 @@ import storage from "redux-persist/lib/storage";
 import { filterSlice } from "./filterCars/slice";
 
 const persistConfig = {
-  key: "car",
+  key: "favoritesCar",
   version: 1,
   storage,
+  whitelist: ["favoritesCar"],
 };
 
 const persistedReducer = persistReducer(persistConfig, carSlice);

@@ -16,7 +16,7 @@ const Car = ({ cars, setCar, setIsOpen }) => {
         return (
           <li
             key={car?.id}
-            className="w-[274px] relative flex flex-col justify-between"
+            className="w-[274px] relative flex flex-col justify-between min-h-[424px] li_h"
           >
             <div className="mb-7">
               <img
