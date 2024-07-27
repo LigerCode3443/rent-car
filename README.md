@@ -29,10 +29,10 @@
 
 ![slide](./public/images/favorite_like.avif)
 
-## Instructions for installing the project on the local machine.
+#### Instructions for installing the project on the local machine.
 
-# git clone https://github.com/LigerCode3443/rent-car.git
+#### git clone https://github.com/LigerCode3443/rent-car.git
 
-# npm install
+#### npm install
 
-# npm run dev
+#### npm run dev
