@@ -1,18 +1,91 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Select from "react-select";
+import { Controller, useForm } from "react-hook-form";
 import { selectSelect } from "../../rudex/cars/selectors";
-import { useForm } from "react-hook-form";
 import { filterCars } from "../../rudex/filterCars/slice";
 
+const customStyles = (isMenuOpenModel) => ({
+  control: (provided) => ({
+    ...provided,
+    minHeight: "40px",
+    border: "none",
+    width: "224px",
+    padding: "6px 8px 6px 10px",
+    borderRadius: "14px",
+    backgroundColor: "#f7f7fb",
+  }),
+  menu: (provided) => ({
+    ...provided,
+    borderRadius: "14px",
+    overflow: " hidden",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? "#3470ff" : "white",
+    color: state.isSelected ? "white" : "rgba(18, 20, 23, 0.2)",
+    fontWeight: "500",
+    fontSize: "16px",
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    transition: "transform 0.3s",
+    transform: isMenuOpenModel ? "rotate(180deg)" : "rotate(0deg)",
+    color: "black",
+  }),
+});
+const customStylesPrice = (isMenuOpen) => ({
+  control: (provided) => ({
+    ...provided,
+    minHeight: "40px",
+    border: "none",
+    width: "125px",
+    padding: "6px 8px 6px 10px",
+    borderRadius: "14px",
+    backgroundColor: "#f7f7fb",
+  }),
+  menu: (provided) => ({
+    ...provided,
+    borderRadius: "14px",
+    overflow: " hidden",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? "#3470ff" : "white",
+    color: state.isSelected ? "white" : "rgba(18, 20, 23, 0.2)",
+    fontWeight: "500",
+    fontSize: "16px",
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    transition: "transform 0.3s",
+    transform: isMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
+    color: "black",
+  }),
+});
+
 export const SearchBar = () => {
+  const { register, handleSubmit, reset, control } = useForm();
   const search = useSelector(selectSelect);
-  const model = search.map((item) => item.make);
+  const dispatch = useDispatch();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpenMode, setIsMenuOpenModel] = useState(false);
+
+  const model = search.map((item) => item.make).toSorted();
+  const md = ["All models", ...model];
   const price = search.map((item) => item.rentalPrice);
-  const optionsModel = [...new Set(model)];
+  const optionsModel = [...new Set(md)];
   const optionsPrice = [...new Set(price)]
     .map((item) => Number(item.replace("$", "")))
     .toSorted((a, b) => a - b);
-  const { register, handleSubmit, reset } = useForm();
-  const dispatch = useDispatch();
+  const sel = optionsModel.map((mod) => {
+    return { value: mod, label: mod };
+  });
+  const selPrice = optionsPrice.map((pri) => {
+    return { value: `$${pri}`, label: pri };
+  });
+  const maxPrice = [{ value: "", label: "All" }, ...selPrice];
+
   const onSubmit = (data) => {
     if (
       (!data.mileageMin && data.mileageMax) ||
@@ -33,34 +106,49 @@ export const SearchBar = () => {
       >
         <label className="flex flex-col ">
           <span className="text-[#8a8a89] text-sm mb-2"> Car brand</span>
-          <select
+          <Controller
             name="make"
-            {...register("make")}
-            className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-56"
-          >
-            <option value="All">All models</option>
-            {optionsModel.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                defaultValue={{ value: "", label: "All models" }}
+                options={sel}
+                onChange={(selectedOption) => onChange(selectedOption.value)}
+                styles={customStyles(isMenuOpenMode)}
+                onBlur={onBlur}
+                value={sel.find((option) => option.value === value)}
+                onMenuOpen={() => {
+                  setIsMenuOpenModel(true);
+                }}
+                onMenuClose={() => {
+                  setIsMenuOpenModel(false);
+                }}
+              />
+            )}
+          />
         </label>
         <label className="flex flex-col">
           <span className="text-[#8a8a89] text-sm mb-2"> Price / 1 hour</span>
-          <select
+          <Controller
             name="price"
-            {...register("price")}
-            defaultValue={null}
-            className="bg-[#f7f7fb] py-[14px] pl-[18px] pr-[14px] rounded-[14px] w-[125px]"
-          >
-            <option value="null">Price</option>
-            {optionsPrice.map((item) => (
-              <option key={item} value={`$${String(item)}`}>
-                {item}
-              </option>
-            ))}
-          </select>
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                defaultValue={{ value: "", label: "All" }}
+                options={maxPrice}
+                onChange={(selectedOption) => onChange(selectedOption.value)}
+                styles={customStylesPrice(isMenuOpen)}
+                onBlur={onBlur}
+                value={sel.find((option) => option.value === value)}
+                onMenuOpen={() => {
+                  setIsMenuOpen(true);
+                }}
+                onMenuClose={() => {
+                  setIsMenuOpen(false);
+                }}
+              />
+            )}
+          />
         </label>
 
         <div className="flex flex-col">
